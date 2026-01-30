@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bathroom.jpg";
 
@@ -26,11 +27,11 @@ export function Hero() {
             Let Us Make Your Home Better. Professional-grade materials for contractors and DIY enthusiasts.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button variant="hero" size="lg">
-              Shop Products
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/shop">Shop Products</Link>
             </Button>
-            <Button variant="heroOutline" size="lg">
-              Contact Us
+            <Button variant="heroOutline" size="lg" asChild>
+              <a href="/#contact">Contact Us</a>
             </Button>
           </div>
         </div>

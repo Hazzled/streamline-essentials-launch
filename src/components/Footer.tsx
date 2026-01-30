@@ -1,8 +1,26 @@
+import type { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
+
+const quickLinks = [
+  { label: "Shop", href: "/shop", isRoute: true },
+  { label: "About Us", href: "/about", isRoute: true },
+  { label: "Contact", href: "/contact", isRoute: true },
+];
 
 export function Footer() {
+  const handleSubscribe = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    toast({
+      title: "Subscription saved",
+      description: "We’ll keep you posted on new products and promotions.",
+    });
+  };
+
   return (
     <footer id="contact" className="bg-slate-800 text-white">
       {/* Newsletter Section */}
@@ -15,7 +33,7 @@ export function Footer() {
             <p className="text-slate-400 mb-6">
               Subscribe to our newsletter for exclusive deals and product updates
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={handleSubscribe}>
               <Input
                 type="email"
                 placeholder="Enter your email"
@@ -34,8 +52,17 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo & Description */}
-          <div className="md:col-span-2">
-            <h4 className="text-xl font-bold mb-4">Streamline Essentials</h4>
+          <div className="md:col-span-2 flex flex-col">
+            <Link
+              to="/"
+              className="inline-flex shrink-0 w-fit mb-4 h-20 sm:h-24 md:h-28"
+              aria-label="Streamline Essentials home"
+            >
+              <Logo
+                className="h-full w-auto max-w-[14rem] sm:max-w-[16rem] md:max-w-[18rem]"
+                noBackground
+              />
+            </Link>
             <p className="text-slate-400 leading-relaxed mb-6 max-w-md">
               Your trusted partner for professional-grade tile installation and waterproofing supplies in the Pacific Northwest.
             </p>
@@ -45,14 +72,23 @@ export function Footer() {
           <div>
             <h5 className="font-semibold mb-4 text-white">Quick Links</h5>
             <ul className="space-y-3">
-              {["Shop", "About Us", "Tile Projects", "Contact"].map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-slate-400 hover:text-primary transition-colors"
-                  >
-                    {link}
-                  </a>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  {link.isRoute ? (
+                    <Link
+                      to={link.href}
+                      className="text-slate-400 hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-slate-400 hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -92,8 +128,8 @@ export function Footer() {
       {/* Copyright */}
       <div className="border-t border-slate-700">
         <div className="container mx-auto px-4 py-6">
-          <p className="text-center text-slate-500 text-sm">
-            © 2024 Streamline Essentials. All rights reserved.
+          <p className="text-center text-slate-500 text-sm flex items-center justify-center gap-2 flex-wrap">
+            © 2024 Streamline Essentials LLC. All rights reserved.
           </p>
         </div>
       </div>

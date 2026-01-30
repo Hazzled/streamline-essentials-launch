@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CartDrawer } from "@/components/CartDrawer";
+import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/Logo";
 
 const navLinks = [
-  { name: "Home", href: "#" },
-  { name: "Shop", href: "#shop" },
-  { name: "About Us", href: "#about" },
-  { name: "Tile Projects", href: "#projects" },
-  { name: "Contact Us", href: "#contact" },
+  { name: "Home", href: "/", isRoute: true },
+  { name: "Shop", href: "/shop", isRoute: true },
+  { name: "About Us", href: "/about", isRoute: true },
+  { name: "Contact Us", href: "/contact", isRoute: true },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const { totalCount } = useCart();
+  const location = useLocation();
+  const isShopPage = location.pathname === "/shop" || location.pathname.startsWith("/shop/");
+  const showScrolledStyle = isScrolled || isShopPage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,39 +34,61 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-3"
-          : "bg-transparent py-4"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-hidden",
+        showScrolledStyle
+          ? "py-3 shadow-md"
+          : "py-4"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-2">
-          <span
-            className={cn(
-              "text-xl md:text-2xl font-bold transition-colors duration-300",
-              isScrolled ? "text-slate-800" : "text-white"
-            )}
-          >
-            Streamline Essentials
-          </span>
-        </a>
+      {/* Gradient: dark fade when hero; static white when scrolled */}
+      <div
+        className={cn(
+          "absolute inset-0 -z-10 transition-all duration-300",
+          showScrolledStyle
+            ? "bg-white/95 backdrop-blur-md"
+            : "bg-gradient-to-b from-slate-900/95 via-slate-800/70 to-transparent"
+        )}
+      />
+      <div className="container mx-auto px-4 flex items-center justify-between relative gap-4 h-14 md:h-16">
+        {/* Logo – fills navbar height */}
+        <Link
+          to="/"
+          className="flex items-center shrink-0 min-w-0 h-full"
+          aria-label="Streamline Essentials home"
+        >
+          <Logo
+            className="h-full w-auto max-w-[11rem] sm:max-w-[13rem] md:max-w-[15rem] transition-all duration-300"
+            noBackground
+          />
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={cn(
-                "text-sm font-medium transition-colors duration-200 hover:text-primary",
-                isScrolled ? "text-slate-600" : "text-white/90"
-              )}
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={cn(
+                  "text-sm font-medium transition-colors duration-200 hover:text-primary",
+                  showScrolledStyle ? "text-slate-600" : "text-white/90"
+                )}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  "text-sm font-medium transition-colors duration-200 hover:text-primary",
+                  showScrolledStyle ? "text-slate-600" : "text-white/90"
+                )}
+              >
+                {link.name}
+              </a>
+            )
+          )}
         </nav>
 
         {/* Actions */}
@@ -68,7 +98,7 @@ export function Navbar() {
             size="icon"
             className={cn(
               "transition-colors",
-              isScrolled ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
+              showScrolledStyle ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
             )}
           >
             <Search className="h-5 w-5" />
@@ -78,16 +108,20 @@ export function Navbar() {
             size="icon"
             className={cn(
               "relative transition-colors",
-              isScrolled ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
+              showScrolledStyle ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
             )}
+            onClick={() => setCartOpen(true)}
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
-              0
-            </span>
+            {totalCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-primary text-white text-xs min-w-5 h-5 px-1 rounded-full flex items-center justify-center font-semibold">
+                {totalCount > 99 ? "99+" : totalCount}
+              </span>
+            )}
           </Button>
+          <CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
           <Button
-            variant={isScrolled ? "outline" : "heroOutline"}
+            variant={showScrolledStyle ? "outline" : "heroOutline"}
             size="sm"
             className="hidden md:inline-flex"
           >
@@ -100,7 +134,7 @@ export function Navbar() {
             size="icon"
             className={cn(
               "lg:hidden transition-colors",
-              isScrolled ? "text-slate-600" : "text-white"
+              showScrolledStyle ? "text-slate-600" : "text-white"
             )}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
@@ -117,16 +151,27 @@ export function Navbar() {
         )}
       >
         <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-slate-600 font-medium py-2 hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-slate-600 font-medium py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-slate-600 font-medium py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            )
+          )}
           <Button variant="outline" className="mt-2">
             Log In
           </Button>

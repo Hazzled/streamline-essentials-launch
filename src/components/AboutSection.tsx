@@ -1,5 +1,5 @@
 import { Award, Shield, MessageCircle, Leaf } from "lucide-react";
-import aboutImage from "@/assets/about-materials.jpg";
+import aboutImage from "@/assets/about-streamline-essentials.png";
 
 const features = [
   { icon: Award, label: "High-Quality" },
@@ -49,7 +49,7 @@ export function AboutSection() {
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
               <img
                 src={aboutImage}
-                alt="Tile installation materials"
+                alt="Streamline Essentials waterproofing products and backer board in a bathroom renovation"
                 className="w-full h-[400px] lg:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
