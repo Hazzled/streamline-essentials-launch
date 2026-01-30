@@ -19,7 +19,7 @@ export function Logo({ className, alt = "Streamline Essentials", invertImg, noBa
       )}
     >
       <img
-        src="https://static.wixstatic.com/media/9f6194_a8f7ca7f2858404d9f599ef6eec407d7~mv2.png/v1/crop/x_36,y_80,w_180,h_88/fill/w_252,h_123,al_c,lg_1,q_85,enc_avif,quality_auto/Transparent%20black%20Text.png"
+        src="/streamline-essentials-logo.png"
         alt={alt}
         className={cn("h-full w-auto object-contain", invertImg && "invert")}
       />
