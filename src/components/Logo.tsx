@@ -26,3 +26,4 @@ export function Logo({ className, alt = "Streamline Essentials", invertImg, noBa
     </span>
   );
 }
+
