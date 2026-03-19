@@ -24,6 +24,7 @@ import { products, getProductById, getPrimaryImage } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { ShoppingCart, Minus, Plus, Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { Seo, getSiteBaseUrl, toAbsoluteUrl } from "@/components/Seo";
 
 const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -45,6 +46,12 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
+        <Seo
+          title="Product not found | Streamline Essentials"
+          description="The product you’re looking for could not be found. Browse our catalog of tile installation and waterproofing supplies."
+          canonicalPath="/shop"
+          noIndex
+        />
         <Navbar />
         <main className="flex-1 pt-28 pb-16 px-4">
           <div className="container mx-auto text-center">
@@ -66,6 +73,9 @@ const ProductDetail = () => {
   const specifications = product.specifications ?? { Category: product.category ?? "—" };
 
   const relatedProducts = products.filter((p) => p.id !== product.id);
+  const siteBaseUrl = getSiteBaseUrl();
+  const productUrl = siteBaseUrl ? `${siteBaseUrl}/shop/${product.id}` : undefined;
+  const productImageUrl = toAbsoluteUrl(getPrimaryImage(product), siteBaseUrl);
 
   const handleAddToCart = () => {
     const size = product.sizes?.length ? selectedSize : undefined;
@@ -86,6 +96,39 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo
+        title={`${product.name} | Streamline Essentials`}
+        description={
+          product.description
+            ? product.description
+            : "Professional-grade tile installation and waterproofing supplies from Streamline Essentials."
+        }
+        canonicalPath={`/shop/${product.id}`}
+        imagePath={getPrimaryImage(product)}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.name,
+          description:
+            product.description ??
+            "Professional-grade tile installation and waterproofing supplies from Streamline Essentials.",
+          image: productImageUrl ? [productImageUrl] : undefined,
+          sku,
+          brand: {
+            "@type": "Brand",
+            name: brand,
+          },
+          category: product.category ?? undefined,
+          offers: {
+            "@type": "Offer",
+            url: productUrl,
+            priceCurrency: "USD",
+            price: Number(product.price.toFixed(2)),
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+          },
+        }}
+      />
       <Navbar />
 
       <main className="flex-1 pt-28 pb-16">

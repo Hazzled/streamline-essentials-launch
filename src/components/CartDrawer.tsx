@@ -147,7 +147,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="(503) 555-0123"
+                    placeholder="(503) 482-8395"
                     className="mt-1"
                   />
                 </div>

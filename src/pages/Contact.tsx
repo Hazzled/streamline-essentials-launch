@@ -4,19 +4,20 @@ import { Footer } from "@/components/Footer";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Seo, getSiteBaseUrl, toAbsoluteUrl } from "@/components/Seo";
 
 const contactItems = [
   {
     icon: Phone,
     label: "Phone",
-    value: "503-766-8120",
-    href: "tel:503-766-8120",
+    value: "(503) 482-8395",
+    href: "tel:+15034828395",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "contact@streamlineessentials.com",
-    href: "mailto:contact@streamlineessentials.com",
+    value: "sales@streamlineessentials.net",
+    href: "mailto:sales@streamlineessentials.net",
   },
   {
     icon: MapPin,
@@ -34,6 +35,9 @@ const MAP_EMBED_SRC =
 
 const Contact = () => {
   const [visible, setVisible] = useState(false);
+  const siteBaseUrl = getSiteBaseUrl();
+  const logoUrl = toAbsoluteUrl("/streamline-essentials-logo.png", siteBaseUrl);
+  const contactUrl = siteBaseUrl ? `${siteBaseUrl}/contact` : undefined;
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 50);
@@ -42,6 +46,36 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <Seo
+        title="Contact | Streamline Essentials"
+        description="Contact Streamline Essentials for trade pricing, product questions, and warehouse visits. Phone (503) 482-8395. Email sales@streamlineessentials.net."
+        canonicalPath="/contact"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Streamline Essentials",
+          url: siteBaseUrl ?? undefined,
+          logo: logoUrl,
+          image: logoUrl,
+          telephone: "+1-503-482-8395",
+          email: "sales@streamlineessentials.net",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Portland",
+            addressRegion: "OR",
+            addressCountry: "US",
+          },
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              contactType: "sales",
+              telephone: "+1-503-482-8395",
+              email: "sales@streamlineessentials.net",
+              url: contactUrl,
+            },
+          ],
+        }}
+      />
       <Navbar />
 
       {/* Hero */}

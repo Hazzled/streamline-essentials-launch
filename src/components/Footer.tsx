@@ -100,20 +100,20 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:1-503-766-8120"
+                  href="tel:+15034828395"
                   className="flex items-center gap-3 text-slate-400 hover:text-primary transition-colors"
                 >
                   <Phone className="h-4 w-4" />
-                  1-503-766-8120
+                  (503) 482-8395
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:contact@streamlineessentials.com"
+                  href="mailto:sales@streamlineessentials.net"
                   className="flex items-center gap-3 text-slate-400 hover:text-primary transition-colors"
                 >
                   <Mail className="h-4 w-4" />
-                  contact@streamlineessentials.com
+                  sales@streamlineessentials.net
                 </a>
               </li>
               <li className="flex items-center gap-3 text-slate-400">

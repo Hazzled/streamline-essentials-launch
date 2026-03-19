@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
 import aboutBathroom from "@/assets/about-bathroom.png";
 import aboutKitchen from "@/assets/about-kitchen.png";
+import { Seo } from "@/components/Seo";
 
 const testimonials = [
   {
@@ -67,6 +68,11 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <Seo
+        title="About | Streamline Essentials"
+        description="Learn about Streamline Essentials—your trusted partner for professional-grade tile installation materials and waterproofing supplies in Portland, Oregon and the Pacific Northwest."
+        canonicalPath="/about"
+      />
       <Navbar />
 
       {/* Hero */}

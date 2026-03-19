@@ -15,6 +15,7 @@ import { useCart } from "@/contexts/CartContext";
 import { ShoppingCart, ChevronDown, Filter } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { Seo } from "@/components/Seo";
 
 const Shop = () => {
   const { addItem } = useCart();
@@ -73,6 +74,11 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Seo
+        title="Shop | Streamline Essentials"
+        description="Shop professional-grade tile installation and waterproofing supplies. Browse our catalog of membranes, backer board, sealants, and more."
+        canonicalPath="/shop"
+      />
       <Navbar />
 
       {/* Shop hero / header */}
