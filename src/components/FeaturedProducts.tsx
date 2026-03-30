@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, ShoppingCart, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "@/hooks/use-toast";
-import { useCart } from "@/contexts/CartContext";
 import { products } from "@/data/products";
 
 export function FeaturedProducts() {
-  const { addItem } = useCart();
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 4;
 
@@ -35,10 +32,10 @@ export function FeaturedProducts() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-2">
-              Latest Products
+              Featured in catalog
             </h2>
             <p className="text-slate-500">
-              Discover our newest additions to professional-grade materials
+              Spec-ready substrates and waterproofing for production tile work
             </p>
           </div>
           <div className="flex gap-2 mt-4 md:mt-0 items-center">
@@ -60,7 +57,7 @@ export function FeaturedProducts() {
             </Button>
             <Button variant="outline" size="sm" className="gap-2" asChild>
               <Link to="/shop">
-                View all products
+                View full catalog
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -100,28 +97,13 @@ export function FeaturedProducts() {
                       </p>
                     ) : null}
                   </div>
-                  <span className="text-2xl font-bold text-slate-800 mt-auto block">
-                    Est. ${product.price.toFixed(2)}
-                  </span>
                 </div>
               </Link>
               <div className="p-6 pt-0">
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="w-full gap-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    addItem(product.id);
-                    toast({
-                      title: "Added to cart",
-                      description: `"${product.name}" has been added. Open the cart to request a call.`,
-                    });
-                  }}
-                >
-                  <ShoppingCart className="h-4 w-4" />
-                  Add to Cart
+                <Button variant="default" size="sm" className="w-full" asChild>
+                  <Link to={`/trade-account?product=${encodeURIComponent(product.name)}`}>
+                    Request trade pricing
+                  </Link>
                 </Button>
               </div>
             </div>

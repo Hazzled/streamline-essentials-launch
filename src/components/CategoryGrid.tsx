@@ -31,10 +31,11 @@ export function CategoryGrid() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-            Waterproofing Supplies in Oregon
+            Catalog by category
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto">
-            Browse our premium selection of tile installation and waterproofing materials
+            Wholesale substrates and waterproofing for Pacific Northwest tile contractors — browse by line, then
+            request trade pricing.
           </p>
         </div>
 
@@ -61,7 +62,7 @@ export function CategoryGrid() {
                 className="w-full text-orange-500 border-2 border-slate-600 hover:text-white hover:bg-orange-500 hover:border-orange-600 transition-all duration-300 shadow-sm"
                 asChild
               >
-                <Link to="/shop">Shop Now</Link>
+                <Link to="/shop">Browse catalog</Link>
               </Button>
             </div>
           ))}

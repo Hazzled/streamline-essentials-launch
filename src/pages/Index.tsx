@@ -17,8 +17,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Seo
-        title="Streamline Essentials | Tile Installation & Waterproofing Supplies (Portland, OR)"
-        description="Professional-grade tile installation and waterproofing supplies serving Portland, Oregon and the Pacific Northwest. Browse backer board, membranes, sealants, and more."
+        title="Streamline Essentials | Wholesale Tile Substrates & Waterproofing (Pacific Northwest)"
+        description="B2B supplier for tile contractors, builders, and distributors: Essenti Board, membranes, shower systems, and trade pricing. Portland-based wholesale for the PNW."
         canonicalPath="/"
         jsonLd={{
           "@context": "https://schema.org",

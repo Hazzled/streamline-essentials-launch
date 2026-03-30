@@ -1,7 +1,6 @@
 export interface Product {
   id: number;
   name: string;
-  price: number;
   label: string | null;
   image: string; // Primary image (first in images array, or single image for backward compatibility)
   images?: string[]; // Multiple images for gallery
@@ -39,7 +38,6 @@ export const products: Product[] = [
   {
     id: 1,
     name: "Essenti Board 1/2 in. x 3 ft. x 5 ft. Backer Board",
-    price: 27.99,
     label: "Best Seller",
     image: "https://static.wixstatic.com/media/9f6194_330595360db64e52b1b36842bbc16f56~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_330595360db64e52b1b36842bbc16f56~mv2.jpg",
     images: [
@@ -72,7 +70,6 @@ export const products: Product[] = [
   {
     id: 2,
     name: "Shower Niche",
-    price: 69.99,
     label: "New Arrival",
     image: "https://static.wixstatic.com/media/9f6194_cac81716b4424255a95f171cbce14105~mv2.png/v1/fill/w_548,h_548,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_cac81716b4424255a95f171cbce14105~mv2.png",
     images: [
@@ -82,7 +79,7 @@ export const products: Product[] = [
       "https://static.wixstatic.com/media/9f6194_34fbd490cc6c45eb93bca781d77e74b1~mv2.png/v1/fill/w_548,h_548,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_34fbd490cc6c45eb93bca781d77e74b1~mv2.png",
     ],
     sizes: ["12 in x 20 in | With Shelf", "12 in x 20 in | Without Shelf", "12 in x 12 in"],
-    description: "Our Shower Niche is the perfect addition to any bathroom renovation. Made with waterproof materials and fully sealed inside corners, it will keep your shower essentials safe and dry. The strong construction ensures it will last for years to come. Easy to install and ready to tile, this niche is a must-have for any tiled shower. Improve the functionality and style of your bathroom with our Shower Niche.",
+    description: "Our Shower Niche is built for commercial and residential wet-area installs. Made with waterproof materials and fully sealed inside corners, it keeps storage dry behind the tile. Strong construction for high-use jobs; easy to install and ready to tile.",
     category: "Shower Kit",
     sku: "SE-002",
     brand: "Streamline Essentials",
@@ -103,14 +100,13 @@ export const products: Product[] = [
   {
     id: 3,
     name: "Shower Pans",
-    price: 229.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_7a24038c335e4731b291cac87233fcec~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_7a24038c335e4731b291cac87233fcec~mv2.jpg",
     images: [
       "https://static.wixstatic.com/media/9f6194_7a24038c335e4731b291cac87233fcec~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_7a24038c335e4731b291cac87233fcec~mv2.jpg",
     ],
     sizes: ["3'x4'", "3'x5'"],
-    description: "Our Shower Pans are made of high-quality materials, ensuring durability and longevity. They are completely waterproof, providing a reliable and leak-free base for your shower. We offer a range of sizes to accommodate any bathroom, and custom sizes can be made upon request. Choose from a variety of drain options and configurations to suit your specific needs. Trust our Shower Pans to provide a sturdy and functional foundation for your bathroom renovation.",
+    description: "Our Shower Pans are made of high-quality materials, ensuring durability and longevity. They are completely waterproof, providing a reliable and leak-free base for your shower. We offer a range of sizes to accommodate any bathroom, and custom sizes can be made upon request. Choose from a variety of drain options and configurations to suit your specific needs. Trust our Shower Pans to provide a sturdy and functional foundation for tile-ready shower builds.",
     category: "Shower Kit",
     sku: "SE-003",
     brand: "Streamline Essentials",
@@ -134,7 +130,6 @@ export const products: Product[] = [
   {
     id: 5,
     name: "Decoupling Mat",
-    price: 329.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_dd1e79babfbb4f8f8ef2f83b23d798bf~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_dd1e79babfbb4f8f8ef2f83b23d798bf~mv2.jpg",
     images: [
@@ -164,7 +159,6 @@ export const products: Product[] = [
   {
     id: 6,
     name: "Performance Sealant",
-    price: 18.99,
     label: null,
     image: "https://i.ibb.co/x8h9s2sC/image.png",
     description: "Our waterproofing sealant is the perfect choice for sealing Essenti Boards. It provides superior protection against water damage and creates a strong, waterproof seal that will last for years. The sealant is easy to apply, dries quickly and is extremely durable. It is a great choice for any construction project that requires a reliable and long-lasting waterproof seal.",
@@ -189,14 +183,13 @@ export const products: Product[] = [
   {
     id: 7,
     name: "Shower Curb",
-    price: 59.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_7c280ab375874acf8d44b5446ae45fcd~mv2.png/v1/fill/w_548,h_410,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_7c280ab375874acf8d44b5446ae45fcd~mv2.png",
     images: [
       "https://static.wixstatic.com/media/9f6194_7c280ab375874acf8d44b5446ae45fcd~mv2.png/v1/fill/w_548,h_410,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_7c280ab375874acf8d44b5446ae45fcd~mv2.png",
     ],
     sizes: ["3 in x 3 in x 3 ft", "3 in x 3 in x 4 ft", "3 in x 3 in x 5 ft"],
-    description: "Our Shower Curb is the perfect addition to any bathroom renovation project. Made from waterproof materials, it ensures that water doesn't seep into your bathroom floor. It is also incredibly strong, meaning it can support heavy shower doors and resist cracking or breaking. We stock a range of sizes to cater for any shower space, making it an ideal choice for both commercial and residential bathroom projects. Upgrade your bathroom with our durable and functional Shower Curb today.",
+    description: "Our Shower Curb is built for wet-area assemblies on commercial and residential jobs. Made from waterproof materials, it keeps water off the bathroom slab. Strong enough to support heavy shower doors and resist cracking. We stock a range of sizes for typical shower openings.",
     category: "Shower Kit",
     sku: "SE-007",
     brand: "Streamline Essentials",
@@ -219,7 +212,6 @@ export const products: Product[] = [
   {
     id: 8,
     name: "Waterproofing Membrane",
-    price: 399.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_b1b221abbb4b43edbb062db4552ced47~mv2.png/v1/fill/w_548,h_776,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_b1b221abbb4b43edbb062db4552ced47~mv2.png",
     images: [
@@ -252,19 +244,18 @@ export const products: Product[] = [
   {
     id: 9,
     name: "Tile Leveling Clips",
-    price: 25.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_51436e08423c4387aa482fd3172d8f50~mv2.png/v1/fill/w_389,h_368,al_c,lg_1,q_85,enc_avif,quality_auto/9f6194_51436e08423c4387aa482fd3172d8f50~mv2.png",
     sku: "00212",
     sizes: ["1/8\" 500/pcs", "1/16\" 500/pcs"],
-    description: "Our Tile Leveling System is the perfect solution for achieving a flawless tile installation. These tools ensure that your tiles are perfectly leveled and evenly spaced. Made from high-quality plastic, our Tile Leveling System is durable and easy to use, making it ideal for both DIYers and professional tile installers. Say goodbye to lippage and uneven tile installations with our Tile Leveling System.",
+    description: "Our Tile Leveling System helps crews achieve flat, lippage-free installs. These clips keep tiles leveled and evenly spaced. Made from high-quality plastic—durable and fast to deploy on production tile work.",
     category: "Tools/Miscellaneous",
     brand: "Streamline Essentials",
     features: [
       "Perfectly leveled and evenly spaced tiles",
       "Flawless tile installation every time",
       "High-quality plastic—durable and easy to use",
-      "Ideal for DIYers and professional tile installers",
+      "Built for production crews and professional tile installers",
       "Eliminates lippage and uneven installations",
     ],
     specifications: {
@@ -276,10 +267,9 @@ export const products: Product[] = [
   {
     id: 10,
     name: "Tile Leveling Wedge",
-    price: 34.99,
     label: null,
     image: "https://static.wixstatic.com/media/9f6194_680030e1fcfd4ee78ef1c87f1b564c52~mv2.png/v1/fill/w_548,h_475,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9f6194_680030e1fcfd4ee78ef1c87f1b564c52~mv2.png",
-    description: "Our Tile Leveling System is a must-have for anyone looking to achieve professional-looking tile installations. Designed to work perfectly with our spacers, this system ensures that your tiles are level and flush, giving you a seamless finish every time. Easy to use and highly effective, our Tile Leveling System is suitable for both DIY enthusiasts and professional tilers alike. Whether you're working on a small bathroom renovation or a large-scale tiling project, our leveling system is a reliable and efficient solution that will save you time and effort. Invest in this tool today and take your tiling game to the next level.",
+    description: "Our Tile Leveling wedges pair with our clips for consistent plane and joint alignment. Designed for fast cycling on commercial and residential tile installs—level, flush finishes with less rework. Reliable on large-format and high-volume jobs.",
     category: "Tools/Miscellaneous",
     sku: "SE-010",
     brand: "Streamline Essentials",
@@ -287,9 +277,9 @@ export const products: Product[] = [
       "Designed to work perfectly with our spacers",
       "Ensures tiles are level and flush for a seamless finish",
       "Easy to use and highly effective",
-      "Suitable for DIY enthusiasts and professional tilers",
-      "Reliable and efficient—saves time and effort",
-      "Ideal for small renovations or large-scale tiling projects",
+      "Built for professional tile crews",
+      "Reliable and efficient—saves time on the job",
+      "Ideal for large-format and production-scale tiling projects",
     ],
     specifications: {
       Category: "Tools/Miscellaneous",

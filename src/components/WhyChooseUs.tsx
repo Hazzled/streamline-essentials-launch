@@ -3,21 +3,21 @@ import { Award, Users, DollarSign } from "lucide-react";
 const features = [
   {
     icon: Award,
-    title: "High-Quality",
+    title: "Wet-area performance",
     description:
-      "We take pride in offering only the highest quality foam tile backer board and materials.",
+      "Substrates and membranes selected for shower, steam, and exterior tile builds — aligned to how PNW crews actually waterproof.",
   },
   {
     icon: Users,
-    title: "Expertise",
+    title: "Reliable stock",
     description:
-      "Our team has years of experience in the construction materials industry.",
+      "A narrow, deep line card so your orders don’t disappear behind general merchandise priorities.",
   },
   {
     icon: DollarSign,
-    title: "Affordable",
+    title: "Trade economics",
     description:
-      "We believe in providing exceptional customer service and satisfaction.",
+      "Wholesale structure built for contractor margins and repeat volume — not retail impulse pricing.",
   },
 ];
 
@@ -27,10 +27,10 @@ export function WhyChooseUs() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-            Why Choose Us
+            Why crews spec us
           </h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
-            Discover what sets Streamline Essentials apart from the competition
+            Installation speed, code-credible assemblies, and terms that respect trade work
           </p>
         </div>
 

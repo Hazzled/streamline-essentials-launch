@@ -11,14 +11,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { products, CATEGORIES } from "@/data/products";
-import { useCart } from "@/contexts/CartContext";
-import { ShoppingCart, ChevronDown, Filter } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { ChevronDown, Filter } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Seo } from "@/components/Seo";
 
 const Shop = () => {
-  const { addItem } = useCart();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -75,28 +72,26 @@ const Shop = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Seo
-        title="Shop | Streamline Essentials"
-        description="Shop professional-grade tile installation and waterproofing supplies. Browse our catalog of membranes, backer board, sealants, and more."
+        title="Wholesale catalog | Streamline Essentials"
+        description="B2B catalog of professional tile substrates, waterproofing, and installation supplies for Pacific Northwest contractors. Trade pricing by application."
         canonicalPath="/shop"
       />
       <Navbar />
 
-      {/* Shop hero / header */}
       <section className="pt-28 pb-12 bg-slate-50 border-b border-slate-200">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-4">
-            Shop All Products
+            Wholesale catalog
           </h1>
           <p className="text-slate-600 max-w-2xl mx-auto">
-            Professional-grade tile installation and waterproofing supplies. Browse our full catalog below.
+            Professional-grade substrates and waterproofing for tile contractors, builders, and distributors. Request
+            trade pricing on any line.
           </p>
         </div>
       </section>
 
-      {/* Content: sidebar + grid */}
       <section className="section-padding bg-white flex-1">
         <div className="container mx-auto px-4">
-          {/* Mobile: collapsible filters */}
           <Collapsible
             open={filtersOpen}
             onOpenChange={setFiltersOpen}
@@ -126,12 +121,10 @@ const Shop = () => {
           </Collapsible>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Desktop: left sidebar */}
             <div className="hidden lg:block">
               <FilterSidebar />
             </div>
 
-            {/* Product grid */}
             <div className="flex-1 min-w-0">
               <p className="text-sm text-slate-500 mb-6">
                 {filteredProducts.length === 0
@@ -174,27 +167,13 @@ const Shop = () => {
                             </p>
                           ) : null}
                         </div>
-                        <span className="text-2xl font-bold text-slate-800 mt-auto block">
-                          Est. ${product.price.toFixed(2)}
-                        </span>
                       </div>
                     </Link>
                     <div className="p-6 pt-0">
-                      <Button
-                        variant="default"
-                        size="sm"
-                        className="w-full gap-2"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addItem(product.id);
-                          toast({
-                            title: "Added to cart",
-                            description: `"${product.name}" has been added. Open the cart to request a call.`,
-                          });
-                        }}
-                      >
-                        <ShoppingCart className="h-4 w-4" />
-                        Add to Cart
+                      <Button variant="default" size="sm" className="w-full" asChild>
+                        <Link to={`/trade-account?product=${encodeURIComponent(product.name)}`}>
+                          Request trade pricing
+                        </Link>
                       </Button>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -21,21 +21,18 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { products, getProductById, getPrimaryImage } from "@/data/products";
-import { useCart } from "@/contexts/CartContext";
-import { ShoppingCart, Minus, Plus, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, FileDown } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { Seo, getSiteBaseUrl, toAbsoluteUrl } from "@/components/Seo";
 
 const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
+  const navigate = useNavigate();
   const product = getProductById(productId);
-  const { addItem } = useCart();
-  const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
   const relatedScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setQuantity(1);
     setSelectedSize(undefined);
   }, [productId]);
 
@@ -48,7 +45,7 @@ const ProductDetail = () => {
       <div className="min-h-screen flex flex-col">
         <Seo
           title="Product not found | Streamline Essentials"
-          description="The product you’re looking for could not be found. Browse our catalog of tile installation and waterproofing supplies."
+          description="The product you’re looking for could not be found. Browse our wholesale catalog of tile installation and waterproofing supplies."
           canonicalPath="/shop"
           noIndex
         />
@@ -58,7 +55,7 @@ const ProductDetail = () => {
             <h1 className="text-2xl font-bold text-slate-800 mb-4">Product not found</h1>
             <p className="text-slate-600 mb-6">The product you're looking for doesn't exist or has been removed.</p>
             <Button asChild>
-              <Link to="/shop">Back to Shop</Link>
+              <Link to="/shop">Back to catalog</Link>
             </Button>
           </div>
         </main>
@@ -77,21 +74,20 @@ const ProductDetail = () => {
   const productUrl = siteBaseUrl ? `${siteBaseUrl}/shop/${product.id}` : undefined;
   const productImageUrl = toAbsoluteUrl(getPrimaryImage(product), siteBaseUrl);
 
-  const handleAddToCart = () => {
+  const handleRequestPricing = () => {
     const size = product.sizes?.length ? selectedSize : undefined;
     if (product.sizes?.length && !size) {
       toast({
         title: "Select a size",
-        description: "Please choose a size before adding to cart.",
+        description: "Choose a size so we can quote the correct SKU.",
         variant: "destructive",
       });
       return;
     }
-    addItem(product.id, quantity, size ? { size } : undefined);
-    toast({
-      title: "Added to cart",
-      description: `${quantity} × "${product.name}"${size ? ` (${size})` : ""} has been added. Open the cart to request a call.`,
-    });
+    const params = new URLSearchParams();
+    params.set("product", product.name);
+    if (size) params.set("size", size);
+    navigate(`/trade-account?${params.toString()}`);
   };
 
   return (
@@ -122,10 +118,9 @@ const ProductDetail = () => {
           offers: {
             "@type": "Offer",
             url: productUrl,
-            priceCurrency: "USD",
-            price: Number(product.price.toFixed(2)),
             availability: "https://schema.org/InStock",
             itemCondition: "https://schema.org/NewCondition",
+            description: "Trade pricing available to approved wholesale accounts. Contact for quote.",
           },
         }}
       />
@@ -144,7 +139,7 @@ const ProductDetail = () => {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/shop">Catalog</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               {product.category && (
@@ -184,10 +179,7 @@ const ProductDetail = () => {
               <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
                 {product.name}
               </h1>
-              <p className="text-3xl font-bold text-slate-800 mb-1">
-                Est. ${product.price.toFixed(2)}
-              </p>
-              <p className="text-sm text-slate-500 mb-6">SKU: {sku} · Price is an estimate; actual price may vary.</p>
+              <p className="text-sm text-slate-500 mb-6">SKU: {sku} · Trade pricing by application</p>
 
               {product.sizes && product.sizes.length > 0 && (
                 <div className="mb-6">
@@ -209,41 +201,11 @@ const ProductDetail = () => {
                 </div>
               )}
 
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-sm font-medium text-slate-700">Quantity</span>
-                <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-none h-10 w-10"
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="w-12 text-center font-medium">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-none h-10 w-10"
-                    onClick={() => setQuantity((q) => q + 1)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <Button
-                variant="default"
-                size="lg"
-                className="gap-2 w-full sm:w-auto mb-6"
-                onClick={handleAddToCart}
-                disabled={product.sizes?.length ? !selectedSize : false}
-              >
-                <ShoppingCart className="h-5 w-5" />
-                Add to Cart
+              <Button variant="hero" size="lg" className="gap-2 w-full sm:w-auto mb-6" onClick={handleRequestPricing}>
+                Request trade pricing
               </Button>
               <p className="text-sm text-slate-500 mt-2 mb-8">
-                Add to cart to request a quote or schedule pickup. No payment required now.
+                Apply for a trade account or request a line-item quote. No retail pricing shown online.
               </p>
 
               <p className="flex items-center gap-2 text-sm text-green-700 mb-8">
@@ -292,76 +254,113 @@ const ProductDetail = () => {
               </div>
             </section>
           )}
+
+          {/* Technical resources */}
+          <section className="mb-12">
+            <h2 className="text-xl font-semibold text-slate-800 mb-4">Technical resources</h2>
+            <p className="text-slate-600 text-sm mb-4 max-w-2xl">
+              Download documentation for submittals and job-site reference. Replace these placeholders with your
+              controlled documents when available.
+            </p>
+            <ul className="flex flex-col sm:flex-row flex-wrap gap-3">
+              <li>
+                <a
+                  href="/resources/placeholder-tds.pdf"
+                  download
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-sm hover:bg-slate-50 hover:border-primary/30 transition-colors"
+                >
+                  <FileDown className="h-5 w-5 text-primary shrink-0" />
+                  Technical Data Sheet (TDS)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/resources/placeholder-sds.pdf"
+                  download
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-sm hover:bg-slate-50 hover:border-primary/30 transition-colors"
+                >
+                  <FileDown className="h-5 w-5 text-primary shrink-0" />
+                  Safety Data Sheet (SDS)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/resources/placeholder-warranty.pdf"
+                  download
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 shadow-sm hover:bg-slate-50 hover:border-primary/30 transition-colors"
+                >
+                  <FileDown className="h-5 w-5 text-primary shrink-0" />
+                  Warranty information
+                </a>
+              </li>
+            </ul>
+          </section>
         </div>
 
-        {/* Related products: entire catalog, centered, horizontal scroll, buttons only */}
+        {/* Related products */}
         {relatedProducts.length > 0 && (
           <section className="w-full mt-12 lg:mt-16 border-t border-slate-200 bg-slate-50/50">
-              <div className="pt-8 pb-8 lg:pt-10 lg:pb-10 px-4">
-                <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 mb-6">
-                  <h2 className="text-xl font-semibold text-slate-800">
-                    You may also like
-                  </h2>
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="rounded-full shrink-0"
-                      aria-label="Scroll left"
-                      onClick={() => {
-                        relatedScrollRef.current?.scrollBy({ left: -320, behavior: "smooth" });
-                      }}
-                    >
-                      <ChevronLeft className="h-5 w-5" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="rounded-full shrink-0"
-                      aria-label="Scroll right"
-                      onClick={() => {
-                        relatedScrollRef.current?.scrollBy({ left: 320, behavior: "smooth" });
-                      }}
-                    >
-                      <ChevronRight className="h-5 w-5" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="max-w-7xl mx-auto">
-                  <div
-                    ref={relatedScrollRef}
-                    className="flex gap-6 overflow-x-auto pb-2 pl-4 pr-4 scroll-smooth scrollbar-hide"
+            <div className="pt-8 pb-8 lg:pt-10 lg:pb-10 px-4">
+              <div className="max-w-7xl mx-auto flex items-center justify-center gap-4 mb-6">
+                <h2 className="text-xl font-semibold text-slate-800">Related in catalog</h2>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full shrink-0"
+                    aria-label="Scroll left"
+                    onClick={() => {
+                      relatedScrollRef.current?.scrollBy({ left: -320, behavior: "smooth" });
+                    }}
                   >
-                    {relatedProducts.map((p) => (
-                      <Link
-                        key={p.id}
-                        to={`/shop/${p.id}`}
-                        className="group shrink-0 w-[280px] sm:w-[300px] block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-                      >
-                        <div className="aspect-video bg-slate-100 overflow-hidden">
-                          <img
-                            src={getPrimaryImage(p)}
-                            alt={p.name}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                        <div className="p-4">
-                          <h3 className="font-semibold text-slate-800 group-hover:text-primary transition-colors line-clamp-2">
-                            {p.name}
-                          </h3>
-                          <p className="text-lg font-bold text-slate-800 mt-1">
-                            Est. ${p.price.toFixed(2)}
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+                    <ChevronLeft className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full shrink-0"
+                    aria-label="Scroll right"
+                    onClick={() => {
+                      relatedScrollRef.current?.scrollBy({ left: 320, behavior: "smooth" });
+                    }}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </Button>
                 </div>
               </div>
-            </section>
-          )}
+              <div className="max-w-7xl mx-auto">
+                <div
+                  ref={relatedScrollRef}
+                  className="flex gap-6 overflow-x-auto pb-2 pl-4 pr-4 scroll-smooth scrollbar-hide"
+                >
+                  {relatedProducts.map((p) => (
+                    <Link
+                      key={p.id}
+                      to={`/shop/${p.id}`}
+                      className="group shrink-0 w-[280px] sm:w-[300px] block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="aspect-video bg-slate-100 overflow-hidden">
+                        <img
+                          src={getPrimaryImage(p)}
+                          alt={p.name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-slate-800 group-hover:text-primary transition-colors line-clamp-2">
+                          {p.name}
+                        </h3>
+                        <p className="text-sm text-primary font-medium mt-2">View product →</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />

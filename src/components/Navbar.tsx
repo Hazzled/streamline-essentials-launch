@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CartDrawer } from "@/components/CartDrawer";
-import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
+import { toast } from "@/hooks/use-toast";
 
 const navLinks = [
   { name: "Home", href: "/", isRoute: true },
-  { name: "Shop", href: "/shop", isRoute: true },
+  { name: "Catalog", href: "/shop", isRoute: true },
   { name: "About Us", href: "/about", isRoute: true },
   { name: "Contact Us", href: "/contact", isRoute: true },
 ];
@@ -17,8 +16,6 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const { totalCount } = useCart();
   const location = useLocation();
   const isShopPage = location.pathname === "/shop" || location.pathname.startsWith("/shop/");
   const showScrolledStyle = isScrolled || isShopPage;
@@ -31,6 +28,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const tradePortalClick = () => {
+    toast({
+      title: "Trade portal",
+      description: "Portal access is provided after account approval. Apply for trade pricing or call (503) 482-8395.",
+    });
+  };
+
   return (
     <header
       className={cn(
@@ -38,7 +42,6 @@ export function Navbar() {
         showScrolledStyle ? "py-3 shadow-md" : "py-4"
       )}
     >
-      {/* Gradient: dark fade when hero; static white when scrolled */}
       <div
         className={cn(
           "absolute inset-0 -z-10 transition-all duration-300",
@@ -48,7 +51,6 @@ export function Navbar() {
         )}
       />
       <div className="container mx-auto px-4 flex items-center justify-between relative gap-4 h-14 md:h-16">
-        {/* Logo – fills navbar height */}
         <Link
           to="/"
           className="flex items-center shrink-0 min-w-0 h-full"
@@ -60,7 +62,6 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) =>
             link.isRoute ? (
@@ -89,44 +90,22 @@ export function Navbar() {
           )}
         </nav>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2 md:gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className={cn(
-              "transition-colors",
-              showScrolledStyle ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
-            )}
-          >
-            <Search className="h-5 w-5" />
+        <div className="flex items-center gap-2 md:gap-3">
+          <Button variant="hero" size="sm" className="sm:hidden shadow-md px-3 text-xs" asChild>
+            <Link to="/trade-account">Apply</Link>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className={cn(
-              "relative transition-colors",
-              showScrolledStyle ? "text-slate-600 hover:text-primary" : "text-white hover:text-white/80"
-            )}
-            onClick={() => setCartOpen(true)}
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {totalCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-white text-xs min-w-5 h-5 px-1 rounded-full flex items-center justify-center font-semibold">
-                {totalCount > 99 ? "99+" : totalCount}
-              </span>
-            )}
-          </Button>
-          <CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
           <Button
             variant={showScrolledStyle ? "outline" : "heroOutline"}
             size="sm"
-            className="hidden md:inline-flex"
+            className="hidden md:inline-flex text-xs px-3"
+            type="button"
+            onClick={tradePortalClick}
           >
-            Log In
+            Trade portal login
           </Button>
-
-          {/* Mobile Menu Toggle */}
+          <Button variant="hero" size="sm" className="hidden sm:inline-flex shadow-md" asChild>
+            <Link to="/trade-account">Apply for trade pricing</Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -141,11 +120,10 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <div
         className={cn(
           "lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
@@ -170,8 +148,13 @@ export function Navbar() {
               </a>
             )
           )}
-          <Button variant="outline" className="mt-2">
-            Log In
+          <Button variant="outline" className="mt-2 w-full" type="button" onClick={tradePortalClick}>
+            Trade portal login
+          </Button>
+          <Button variant="hero" className="w-full" asChild>
+            <Link to="/trade-account" onClick={() => setIsMobileMenuOpen(false)}>
+              Apply for trade pricing
+            </Link>
           </Button>
         </nav>
       </div>

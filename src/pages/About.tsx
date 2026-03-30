@@ -16,37 +16,37 @@ const testimonials = [
   {
     id: 1,
     quote:
-      "Streamline Essentials made our home grow with grace! Their expertise turned a simple addition into a seamless extension. The process was smooth, the team was stellar, and now our home has the space it always deserved. Kudos to Streamline Essentials for the perfect fit!",
-    author: "Alex R.",
-    subtitle: "Seamless Expansion",
+      "Stock is predictable and the spec packets are actually useful on commercial submittals. We stopped burning hours chasing back-ordered board from big-box distributors.",
+    author: "Marcus T.",
+    subtitle: "Commercial GC, Seattle",
   },
   {
     id: 2,
     quote:
-      "Streamline Essentials took my basement from blah to brilliant! The makeover is nothing short of a design marvel. Their team's creativity and attention to detail turned an overlooked space into the trendiest spot in the house. My friends are in awe, and so am I!",
-    author: "Natalie C.",
-    subtitle: "Chic Basement",
+      "Their crew knows wet-area assemblies. When we need membrane continuity details answered fast, we get a real answer — not a retail script.",
+    author: "Elena V.",
+    subtitle: "Tile contractor, Portland metro",
   },
 ];
 
 const whyChooseItems = [
   {
     icon: Award,
-    title: "High-Quality",
+    title: "Spec-grade line card",
     description:
-      "We take pride in offering only the highest quality foam tile backer board, tile underlayment materials, and installation tools. Our products are designed to meet the needs of both residential and commercial projects.",
+      "Focused SKU mix: backer, membranes, and shower components chosen for code-aligned wet-area builds — not a scattershot retail shelf.",
   },
   {
     icon: Users,
-    title: "Expertise",
+    title: "Trade-first support",
     description:
-      "Our team has years of experience in the construction materials industry. We have the expertise and knowledge to help you with any project, big or small.",
+      "We work with licensed contractors, builders, and distributors. Accounts get direct access to availability, docs, and pricing structured for volume.",
   },
   {
     icon: DollarSign,
-    title: "Affordable",
+    title: "Margins & terms",
     description:
-      "At Streamline Essentials, we believe in providing exceptional customer service. We are committed to helping our customers find the right products for their projects and ensuring their complete satisfaction.",
+      "Wholesale positioning without retail overhead passed through. Ask about trade terms after your application is approved.",
   },
 ];
 
@@ -61,8 +61,8 @@ const About = () => {
   const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast({
-      title: "You're on the list!",
-      description: "We'll keep you posted on new products and promotions.",
+      title: "You're on the list",
+      description: "We’ll send spec updates and stock notices relevant to trade accounts.",
     });
   };
 
@@ -70,7 +70,7 @@ const About = () => {
     <div className="min-h-screen bg-slate-50">
       <Seo
         title="About | Streamline Essentials"
-        description="Learn about Streamline Essentials—your trusted partner for professional-grade tile installation materials and waterproofing supplies in Portland, Oregon and the Pacific Northwest."
+        description="Pacific Northwest wholesale supplier of tile substrates and waterproofing for contractors and distributors. Portland-based inventory, spec support, trade terms."
         canonicalPath="/about"
       />
       <Navbar />
@@ -97,8 +97,7 @@ const About = () => {
               About Streamline Essentials
             </h1>
             <p className="text-slate-300 text-lg">
-              Your trusted partner for construction materials in the tile
-              installation industry.
+              Wholesale waterproofing and tile substrates for crews that live on schedule, code, and margin.
             </p>
           </div>
         </div>
@@ -113,19 +112,14 @@ const About = () => {
               style={{ animationDelay: "150ms", animationFillMode: "forwards" }}
             >
               <p className="text-slate-600 leading-relaxed mb-6">
-                At Streamline Essentials, our mission is to provide the highest
-                quality construction materials at an accessible price. We
-                specialize in backer boards, and other materials used in the tile
-                installation industry.
+                Streamline Essentials supplies professional tile substrates, waterproofing, and related materials to
+                licensed contractors, builders, and distributors across the Pacific Northwest. We are built for trade
+                volume — consistent stock, clear documentation, and account support that respects how your crews work.
               </p>
               <p className="text-slate-600 leading-relaxed mb-8">
-                We understand the importance of having reliable, durable, and
-                quality construction materials that won't break the bank. That's
-                why we partner with a few of our local friends to source the
-                highest quality materials and provide them to our customers at
-                unbeatable prices. We are proud to be local to Portland, Oregon
-                and look forward to serving our community. Contact us today to see
-                how we can help streamline your construction project.
+                From Essenti Board to membranes and shower-system components, we focus on a tight line card so you
+                spend less time sourcing and more time installing. Contact us to open a trade account or coordinate a
+                warehouse visit.
               </p>
               <Link to="/contact">
                 <Button variant="hero" size="lg" className="gap-2">
@@ -156,14 +150,14 @@ const About = () => {
             className="text-2xl md:text-3xl font-bold text-slate-800 text-center mb-4 animate-fade-in-up opacity-0"
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
-            Kitchen Remodeling
+            Commercial &amp; residential installs
           </h2>
           <p
             className="text-slate-600 text-center max-w-2xl mx-auto mb-10 animate-fade-in-up opacity-0"
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            From backsplashes to full remodels, we supply the materials that
-            make your vision possible.
+            Our materials show up on production tile jobs — multi-family, hospitality, and high-end residential — where
+            waterproofing and flat substrates have to be right the first time.
           </p>
           <div
             className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-card animate-fade-in-up opacity-0"
@@ -185,7 +179,7 @@ const About = () => {
             className="text-3xl md:text-4xl font-bold text-white text-center mb-4 animate-fade-in-up opacity-0"
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
-            Client Testimonials
+            What trade partners say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-12">
             {testimonials.map((t, i) => (
@@ -228,7 +222,7 @@ const About = () => {
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
             <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4">
-              Be the first to know!
+              Trade updates
             </h2>
             <form
               onSubmit={handleSubscribe}

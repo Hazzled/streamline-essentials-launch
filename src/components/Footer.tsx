@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 
 const quickLinks = [
-  { label: "Shop", href: "/shop", isRoute: true },
+  { label: "Catalog", href: "/shop", isRoute: true },
+  { label: "Trade account", href: "/trade-account", isRoute: true },
   { label: "About Us", href: "/about", isRoute: true },
   { label: "Contact", href: "/contact", isRoute: true },
 ];
@@ -17,7 +18,7 @@ export function Footer() {
     event.preventDefault();
     toast({
       title: "Subscription saved",
-      description: "We’ll keep you posted on new products and promotions.",
+      description: "We’ll send trade-relevant product and spec updates.",
     });
   };
 
@@ -28,10 +29,10 @@ export function Footer() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Be the first to know!
+              Spec &amp; stock updates
             </h3>
             <p className="text-slate-400 mb-6">
-              Subscribe to our newsletter for exclusive deals and product updates
+              Email updates for trade accounts: new SKUs, submittal docs, and inventory notices — not retail coupons.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={handleSubscribe}>
               <Input
@@ -64,7 +65,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-slate-400 leading-relaxed mb-6 max-w-md">
-              Your trusted partner for professional-grade tile installation and waterproofing supplies in the Pacific Northwest.
+              Wholesale tile substrates and waterproofing for Pacific Northwest contractors, builders, and distributors.
             </p>
           </div>
 

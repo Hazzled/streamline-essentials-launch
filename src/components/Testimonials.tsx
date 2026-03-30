@@ -1,17 +1,17 @@
-import { Quote } from "lucide-react";
-
 const testimonials = [
   {
     id: 1,
     quote:
-      "Streamline Essentials transformed my kitchen into a culinary haven! From drab to fab, their team blended style and functionality seamlessly.",
-    author: "Sophie L.",
+      "The Essenti Board cuts clean and saves our crews hours on prep compared to cement board. Less dust on the job, faster carry-in, and the GC notices the pace.",
+    author: "James K.",
+    role: "Lead installer, residential tile crew",
   },
   {
     id: 2,
     quote:
-      "Streamline Essentials worked magic on my bathroom! They waved goodbye to outdated tiles and welcomed in a spa-like oasis.",
-    author: "Kevin S.",
+      "Stock has been steady when other suppliers were flipping ETAs weekly. That predictability is worth more than a few cents on a sheet.",
+    author: "Priya M.",
+    role: "Purchasing, commercial subcontractor",
   },
 ];
 
@@ -21,10 +21,10 @@ export function Testimonials() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Client Testimonials
+            What crews are saying
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto">
-            See what our customers have to say about their experience with us
+            Trade-focused feedback from installers and buyers who run volume in the field
           </p>
         </div>
 
@@ -32,10 +32,9 @@ export function Testimonials() {
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8"
+              className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 hover:bg-slate-800/70 transition-all duration-300"
             >
-              <Quote className="absolute top-6 right-6 w-12 h-12 text-primary/20" />
-              <p className="text-lg text-slate-300 leading-relaxed mb-6 relative z-10">
+              <p className="text-lg text-slate-300 leading-relaxed mb-6">
                 "{testimonial.quote}"
               </p>
               <div className="flex items-center gap-4">
@@ -44,9 +43,12 @@ export function Testimonials() {
                     {testimonial.author.charAt(0)}
                   </span>
                 </div>
-                <span className="font-semibold text-white">
-                  – {testimonial.author}
-                </span>
+                <div>
+                  <span className="font-semibold text-white block">
+                    – {testimonial.author}
+                  </span>
+                  <span className="text-sm text-slate-400">{testimonial.role}</span>
+                </div>
               </div>
             </div>
           ))}

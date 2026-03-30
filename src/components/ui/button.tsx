@@ -19,7 +19,6 @@ const buttonVariants = cva(
         hero: "bg-primary text-white hover:bg-orange-dark shadow-lg hover:shadow-xl active:scale-[0.98] font-semibold",
         heroOutline: "border-2 border-white bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-slate-700 font-semibold",
         nav: "text-slate-600 hover:text-primary font-medium",
-        cart: "bg-slate-100 text-slate-700 hover:bg-slate-200",
       },
       size: {
         default: "h-11 px-6 py-2",
